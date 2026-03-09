@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { User } from './auth/entities/user.entity';
 import { TypeOrmModule } from '@nestjs/typeorm'; 
 import { ConfigModule } from '@nestjs/config';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { CommonModule } from './common/common.module';
 import { join } from 'path';
+import { SeedModule } from './seed/seed.module';
+import { DataSource } from 'typeorm';
 
 
 
@@ -36,9 +36,14 @@ import { join } from 'path';
    
     CommonModule,
 
+    SeedModule
+
    
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
+  exports: []
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private dataSource: DataSource){}
+}
